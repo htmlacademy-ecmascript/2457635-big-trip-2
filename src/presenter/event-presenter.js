@@ -5,7 +5,7 @@ import AddNewPointFormView from '../view/add-new-point-form-view.js';
 import EditPointFormView from '../view/edit-point-form-view.js';
 import WaypointView  from '../view/event-list-view.js';
 
-import {render} from './render.js';
+import {render} from '../render.js';
 
 const POINTS_NUMBER = 3;
 
