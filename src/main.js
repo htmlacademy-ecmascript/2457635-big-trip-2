@@ -1,7 +1,7 @@
 import EventPresenter from '../src/presenter/event-presenter.js';
 
-const pageMainElement = document.querySelector('.page-body__page-main');
+const siteMainElement = document.querySelector('.page-body');
 
-const eventPresenter = new EventPresenter({listContainer: pageMainElement});
+const eventPresenter = new EventPresenter(siteMainElement);
 
 eventPresenter.init();

@@ -3,29 +3,23 @@ import SortView from '../view/sort-view.js';
 import EventListItemView  from '../view/event-list-item-view.js';
 import AddNewPointFormView from '../view/add-new-point-form-view.js';
 import EditPointFormView from '../view/edit-point-form-view.js';
-import WaypointView  from '../view/event-list-view.js';
 
 import {render} from '../render.js';
 
-const POINTS_NUMBER = 3;
-
 export default class EventPresenter {
-  sortComponent = new SortView();
-  tripListComponent = new WaypointView();
-
-  constructor({ listContainer }) {
-    this.listContainer = listContainer;
+  constructor(siteMainElement) {
+    this.siteMainElement = siteMainElement;
   }
 
   init() {
-    render(new FilterView(), this.listContainer.getElement());
-    render(this.sortComponent, this.listContainer);
-    render(this.tripListComponent, this.listContainer);
-    render(new EditPointFormView(), this.listContainer.getElement());
-    render(new AddNewPointFormView(), this.listContainer.getElement());
+    render(new FilterView(), this.siteMainElement.querySelector('.trip-controls__filters'));
+    render(new SortView(), this.siteMainElement.querySelector('.trip-events'));
+    const tripEventListElement = this.siteMainElement.querySelector('.trip-events__list');
+    render(new AddNewPointFormView(), tripEventListElement);
+    render(new EditPointFormView(), tripEventListElement);
 
-    for (let i = 0; i < POINTS_NUMBER; i++) {
-      render(new EventListItemView(), this.listContainer.getElement());
+    for (let i = 0; i < 3; i++) {
+      render(new EventListItemView(), tripEventListElement);
     }
   }
 }
