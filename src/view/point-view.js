@@ -1,6 +1,6 @@
 import {createElement} from '../render.js';
 
-function createEventListItem() {
+function createPoint() {
 return (`<li class="trip-events__item">
 <div class="event">
   <time class="event__date" datetime="2019-03-18">MAR 18</time>
@@ -40,9 +40,9 @@ return (`<li class="trip-events__item">
 </li>`);
 }
 
-export default class EventListItemView {
+export default class PointView {
   getTemplate() {
-    return createEventListItem();
+    return createPoint();
   }
 
   getElement() {
