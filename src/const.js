@@ -1,18 +1,9 @@
-export const POINTS_COUNT = 3;
-
-export const dateTimeFormat = {
-  time: 'HH:mm',
-  date: 'MMM DD',
+const DATE_FORMAT = {
+  MONTH_DAY: 'MMM D',
+  HOURS: 'HH:MM',
+  FULL_DATE_TIME: 'MM/DD/YYYY HH:mm',
 };
 
-export const pointsTypes = [
-  'taxi',
-  'bus',
-  'train',
-  'ship',
-  'drive',
-  'flight',
-  'check-in',
-  'sightseeing',
-  'restaurant',
-];
+const POINT_COUNT = 4;
+
+export {DATE_FORMAT, POINT_COUNT};

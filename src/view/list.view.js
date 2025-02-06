@@ -2,9 +2,7 @@
 import {createElement} from '../render.js';
 
 function createListTemplate() {
-  return (
-    '<ul class="trip-events__list"></ul>'
-  );
+  return ('<ul class="trip-events__list"></ul>');
 }
 
 export default class ListView {
@@ -22,5 +20,5 @@ export default class ListView {
 
   removeElement() {
     this.element = null;
-  }
-}
+  };
+};
