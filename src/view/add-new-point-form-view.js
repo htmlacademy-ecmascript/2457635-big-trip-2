@@ -1,7 +1,6 @@
-import {createElement} from '../render.js';
+import { createElement } from '../render.js';
 
-function createAddNewPointFormTemplate() {
-return (`<form class="event event--edit" action="#" method="post">
+const createTripPointFormTemplete = () => `<form class="event event--edit" action="#" method="post">
   <header class="event__header">
     <div class="event__type-wrapper">
       <label class="event__type  event__type-btn" for="event-type-toggle-1">
@@ -110,12 +109,11 @@ return (`<form class="event event--edit" action="#" method="post">
       </div>
     </section>
   </section>
-</form>`);
-}
+</form>`;
 
 export default class AddNewPointFormView {
   getTemplate() {
-    return createAddNewPointFormTemplate();
+    return createTripPointFormTemplete();
   }
 
   getElement() {

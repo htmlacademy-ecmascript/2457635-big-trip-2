@@ -2,8 +2,8 @@ import {createElement} from '../render.js';
 import { humanizeDate } from '../presenter/utils.js';
 import { DATE_FORMAT } from '../const.js';
 
-const createOfferTemplate = ({title, price}) => `
-  <li class="event__offer">
+const createOfferTemplate = ({title, price}) =>
+`<li class="event__offer">
     <span class="event__offer-title">${title}</span>
     &plus;&euro;&nbsp;
     <span class="event__offer-price">${price}</span>
@@ -13,7 +13,8 @@ const createOfferTemplate = ({title, price}) => `
 const createTripPointTemplete = (point, offers, destination) => {
   const { type, dateFrom, dateTo, isFavorite, basePrice } = point;
   const { name } = destination;
-return `<li class="trip-events__item">
+return `
+<li class="trip-events__item">
 <div class="event">
 <time class="event__date" datetime="${dateFrom}">${humanizeDate(dateFrom, DATE_FORMAT.MONTH_DAY)}</time>
   <div class="event__type">
@@ -48,8 +49,14 @@ return `<li class="trip-events__item">
 }
 
 export default class PointView {
+  constructor({point, offers, destination}) {
+    this.point = point;
+    this.offers = offers;
+    this.destination = destination;
+  }
+
   getTemplate() {
-    return createTripPointTemplete();
+    return createTripPointTemplete(this.point, this.offers, this.destination);
   }
 
   getElement() {

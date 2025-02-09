@@ -8,8 +8,8 @@ import PointsModel from './model/point-model.js';
 const siteMainElement = document.querySelector('.trip-events');
 const siteHeaderElement = document.querySelector('.trip-main');
 
-const pointModel = new PointsModel();
-const eventPresenter = new EventPresenter({container: siteMainElement, pointModel});
+const pointsModel = new PointsModel();
+const eventPresenter = new EventPresenter({container: siteMainElement, pointsModel});
 const headerPresenter = new HeaderPresenter({container: siteHeaderElement});
 
 headerPresenter.init();
