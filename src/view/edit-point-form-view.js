@@ -53,7 +53,7 @@ const createDatalistOptionsTemplate = ({name}) => `<option value="${name}"></opt
 const editTripPointFormTemplete = (point, offers, checkedOffers, destination, allDestinations) => {
   const { type, dateFrom, dateTo, basePrice, id } = point;
   const { name, description, pictures } = destination;
-return `
+  return `
 <form class="event event--edit" action="#" method="post">
   <header class="event__header">
     <div class="event__type-wrapper">
@@ -171,6 +171,7 @@ export default class EditPointFormView {
   getTemplate() {
     return editTripPointFormTemplete(this.point, this.offers, this.checkedOffers, this.destination, this.destinationAll);
   }
+
   getElement() {
     if (!this.element) {
       this.element = createElement(this.getTemplate());

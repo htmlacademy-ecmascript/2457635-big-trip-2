@@ -18,5 +18,5 @@ export default class ListView {
 
   removeElement() {
     this.element = null;
-  };
-};
+  }
+}

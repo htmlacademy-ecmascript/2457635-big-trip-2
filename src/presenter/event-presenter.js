@@ -1,6 +1,6 @@
 import SortView from '../view/sort-view.js';
 import ListView from '../view/list.view.js';
-import PointView  from '../view/point-view.js';
+import PointView from '../view/point-view.js';
 import EditPointFormView from '../view/edit-point-form-view.js';
 import {render} from '../render.js';
 export default class EventPresenter {
