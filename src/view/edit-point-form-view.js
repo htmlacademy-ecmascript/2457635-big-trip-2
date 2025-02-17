@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { humanizeDate } from '../presenter/utils.js';
 import { DATE_FORMAT } from '../const.js';
 
@@ -53,7 +53,7 @@ const createDatalistOptionsTemplate = ({name}) => `<option value="${name}"></opt
 const editTripPointFormTemplete = (point, offers, checkedOffers, destination, allDestinations) => {
   const { type, dateFrom, dateTo, basePrice, id } = point;
   const { name, description, pictures } = destination;
-return `
+  return `
 <form class="event event--edit" action="#" method="post">
   <header class="event__header">
     <div class="event__type-wrapper">
@@ -158,28 +158,34 @@ return `
   </section>
 </form>`;
 };
+export default class EditPointFormView extends AbstractView {
+  #point = null;
+  #checkedOffers = null;
+  #offers = null;
+  #destination = null;
+  #destinationAll = null;
+  #handleFormSubmit = null;
 
-export default class EditPointFormView {
-  constructor({point, offers, destination, checkedOffers, allDestinations}) {
-    this.point = point;
-    this.checkedOffers = checkedOffers;
-    this.offers = offers;
-    this.destination = destination;
-    this.destinationAll = allDestinations;
+  constructor({point, offers, destination, checkedOffers, allDestinations, onFormSubmit}){
+    super();
+    this.#point = point;
+    this.#checkedOffers = checkedOffers;
+    this.#offers = offers;
+    this.#destination = destination;
+    this.#destinationAll = allDestinations;
+
+    this.#handleFormSubmit = onFormSubmit;
+    this.element.querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#formSubmitHandler);
   }
 
-  getTemplate() {
-    return editTripPointFormTemplete(this.point, this.offers, this.checkedOffers, this.destination, this.destinationAll);
-  }
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
+  get template() {
+    return editTripPointFormTemplete(this.#point, this.#offers, this.#checkedOffers, this.#destination, this.#destinationAll);
   }
 
-  removeElement() {
-    this.element = null;
-  }
+  #formSubmitHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFormSubmit();
+  };
 }
+

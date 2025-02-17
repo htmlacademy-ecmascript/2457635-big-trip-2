@@ -1,9 +1,9 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { humanizeDate } from '../presenter/utils.js';
 import { DATE_FORMAT } from '../const.js';
 
 const createOfferTemplate = ({title, price}) =>
-`<li class="event__offer">
+  `<li class="event__offer">
     <span class="event__offer-title">${title}</span>
     &plus;&euro;&nbsp;
     <span class="event__offer-price">${price}</span>
@@ -13,14 +13,14 @@ const createOfferTemplate = ({title, price}) =>
 const createTripPointTemplete = (point, offers, destination) => {
   const { type, dateFrom, dateTo, isFavorite, basePrice } = point;
   const { name } = destination;
-return `
+  return `
 <li class="trip-events__item">
 <div class="event">
 <time class="event__date" datetime="${dateFrom}">${humanizeDate(dateFrom, DATE_FORMAT.MONTH_DAY)}</time>
   <div class="event__type">
-  <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
+  <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
   </div>
-  <h3 class="event__title">${type} as ${name}</h3>
+  <h3 class="event__title">${type} at ${name}</h3>
   <div class="event__schedule">
     <p class="event__time">
     <time class="event__start-time" datetime="${dateFrom}">${humanizeDate(dateFrom, DATE_FORMAT.HOURS)}</time>
@@ -46,28 +46,31 @@ return `
   </button>
 </div>
 </li>`;
-}
+};
 
-export default class PointView {
-  constructor({point, offers, destination}) {
-    this.point = point;
-    this.offers = offers;
-    this.destination = destination;
+export default class PointView extends AbstractView {
+  #point = null;
+  #offers = null;
+  #destination = null;
+  #handleEditClick = null;
+
+  constructor({point, offers, destination, onEditClick}) {
+    super();
+    this.#point = point;
+    this.#offers = offers;
+    this.#destination = destination;
+    this.#handleEditClick = onEditClick;
+
+    this.element.querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#editClickHandler);
   }
 
-  getTemplate() {
-    return createTripPointTemplete(this.point, this.offers, this.destination);
+  get template() {
+    return createTripPointTemplete(this.#point, this.#offers, this.#destination);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleEditClick();
+  };
 }

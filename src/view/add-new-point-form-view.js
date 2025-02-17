@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 const createTripPointFormTemplete = () => `<form class="event event--edit" action="#" method="post">
   <header class="event__header">
@@ -53,10 +53,10 @@ const createTripPointFormTemplete = () => `<form class="event event--edit" actio
             <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-1">Sightseeing</label>
           </div>
 
-          <div class="event__type-item">
-            <input id="event-type-restaurant-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="restaurant">
-            <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-1">Restaurant</label>
-          </div>
+            <div class="event__type-item">
+              <input id="event-type-restaurant-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="restaurant">
+              <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-1">Restaurant</label>
+            </div>
         </fieldset>
       </div>
     </div>
@@ -110,21 +110,8 @@ const createTripPointFormTemplete = () => `<form class="event event--edit" actio
     </section>
   </section>
 </form>`;
-
-export default class AddNewPointFormView {
-  getTemplate() {
+export default class AddNewPointFormView extends AbstractView {
+  get template() {
     return createTripPointFormTemplete();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }
