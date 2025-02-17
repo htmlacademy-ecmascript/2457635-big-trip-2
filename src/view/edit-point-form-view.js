@@ -166,6 +166,7 @@ export default class EditPointFormView extends AbstractView {
   #destination = null;
   #destinationAll = null;
 
+<<<<<<< HEAD
   constructor({point, offers, destination, checkedOffers, allDestinations}) {
     super();
     this.#point = point;
@@ -174,7 +175,6 @@ export default class EditPointFormView extends AbstractView {
     this.#destination = destination;
     this.#destinationAll = allDestinations;
   }
-
   get template() {
     return editTripPointFormTemplete(this.#point, this.#offers, this.#checkedOffers, this.#destination, this.#destinationAll);
   }

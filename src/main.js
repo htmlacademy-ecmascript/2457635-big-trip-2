@@ -1,6 +1,3 @@
-// import FilterView from './view/filter-view.js';
-// import {render} from './render.js';
-
 import EventPresenter from './presenter/event-presenter.js';
 import HeaderPresenter from './presenter/header-presenter.js';
 import PointsModel from './model/point-model.js';
