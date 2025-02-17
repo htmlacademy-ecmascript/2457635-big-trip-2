@@ -158,7 +158,6 @@ const editTripPointFormTemplete = (point, offers, checkedOffers, destination, al
   </section>
 </form>`;
 };
-
 export default class EditPointFormView extends AbstractView {
   #point = null;
   #checkedOffers = null;
@@ -166,7 +165,6 @@ export default class EditPointFormView extends AbstractView {
   #destination = null;
   #destinationAll = null;
 
-<<<<<<< HEAD
   constructor({point, offers, destination, checkedOffers, allDestinations}) {
     super();
     this.#point = point;
