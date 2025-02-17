@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { humanizeDate } from '../presenter/utils.js';
 import { DATE_FORMAT } from '../const.js';
 
@@ -53,7 +53,7 @@ const createDatalistOptionsTemplate = ({name}) => `<option value="${name}"></opt
 const editTripPointFormTemplete = (point, offers, checkedOffers, destination, allDestinations) => {
   const { type, dateFrom, dateTo, basePrice, id } = point;
   const { name, description, pictures } = destination;
-return `
+  return `
 <form class="event event--edit" action="#" method="post">
   <header class="event__header">
     <div class="event__type-wrapper">
@@ -159,27 +159,24 @@ return `
 </form>`;
 };
 
-export default class EditPointFormView {
+export default class EditPointFormView extends AbstractView {
+  #point = null;
+  #checkedOffers = null;
+  #offers = null;
+  #destination = null;
+  #destinationAll = null;
+
   constructor({point, offers, destination, checkedOffers, allDestinations}) {
-    this.point = point;
-    this.checkedOffers = checkedOffers;
-    this.offers = offers;
-    this.destination = destination;
-    this.destinationAll = allDestinations;
+    super();
+    this.#point = point;
+    this.#checkedOffers = checkedOffers;
+    this.#offers = offers;
+    this.#destination = destination;
+    this.#destinationAll = allDestinations;
   }
 
-  getTemplate() {
-    return editTripPointFormTemplete(this.point, this.offers, this.checkedOffers, this.destination, this.destinationAll);
-  }
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return editTripPointFormTemplete(this.#point, this.#offers, this.#checkedOffers, this.#destination, this.#destinationAll);
   }
 }
+
