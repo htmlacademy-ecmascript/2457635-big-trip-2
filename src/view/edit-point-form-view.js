@@ -178,6 +178,7 @@ export default class EditPointFormView extends AbstractView {
     this.element.querySelector('.event__rollup-btn')
       .addEventListener('click', this.#formSubmitHandler);
   }
+
   get template() {
     return editTripPointFormTemplete(this.#point, this.#offers, this.#checkedOffers, this.#destination, this.#destinationAll);
   }

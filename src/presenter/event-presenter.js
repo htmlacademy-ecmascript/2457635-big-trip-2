@@ -24,6 +24,7 @@ export default class EventPresenter {
       this.#renderPoint(this.#tripPoints[i]);
     }
   }
+
   #renderPoint(point) {
     const escKeyDownHandler = (evt) => {
       if (evt.key === 'Escape') {
