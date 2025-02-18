@@ -84,7 +84,7 @@ const editTripPointFormTemplete = (point, offers, checkedOffers, destination, al
 
           <div class="event__type-item">
           <input id="event-type-ship-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship">
-          <label class="event__type-label  event__type-label--ship" for="event-type-ship-${id}">Ship</label>
+          <label class="event__type-label  event__type-label--ship" for="event-type-ship-${id}">ship</label>
           </div>
 
           <div class="event__type-item">
