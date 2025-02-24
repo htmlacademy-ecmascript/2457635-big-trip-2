@@ -3,6 +3,7 @@ import ListView from '../view/list.view.js';
 import PointView from '../view/point-view.js';
 import EditPointFormView from '../view/edit-point-form-view.js';
 import { render, replace } from '../framework/render.js';
+import NoPointView from '../view/no-point-view.js';
 export default class EventPresenter {
   #boardContainer;
   #pointsModel;
@@ -18,8 +19,23 @@ export default class EventPresenter {
 
   init() {
     this.#tripPoints = [...this.#pointsModel.points];
+
+    if(this.#tripPoints.length === 0) {
+      this.#renderNoPoint();
+      return;
+    }
+
+    this.#renderBoard();
+  }
+
+  #renderNoPoint() {
+    render(new NoPointView(), this.#boardContainer);
+  }
+
+  #renderBoard() {
     render(new SortView(), this.#boardContainer);
     render(this.#listOfTrips, this.#boardContainer);
+
     for (let i = 0; i < this.#tripPoints.length; i++) {
       this.#renderPoint(this.#tripPoints[i]);
     }
@@ -42,6 +58,7 @@ export default class EventPresenter {
         document.addEventListener('keydown', escKeyDownHandler);
       }
     });
+
     const pointEditComponent = new EditPointFormView({
       point: point,
       checkedOffers: [...this.#pointsModel.getOffersByTypeAndIds(point.type, point.offers)],
