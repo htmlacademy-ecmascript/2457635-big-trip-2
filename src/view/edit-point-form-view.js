@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { humanizeDate } from '../presenter/utils.js';
+import { humanizeDate } from '../utils.js/point.js';
 import { DATE_FORMAT } from '../const.js';
 
 const createOfferTemplate = (offer, checkedOffers) => {
@@ -84,7 +84,7 @@ const editTripPointFormTemplete = (point, offers, checkedOffers, destination, al
 
           <div class="event__type-item">
           <input id="event-type-ship-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship">
-          <label class="event__type-label  event__type-label--ship" for="event-type-ship-${id}">Ship</label>
+          <label class="event__type-label  event__type-label--ship" for="event-type-ship-${id}">ship</label>
           </div>
 
           <div class="event__type-item">
@@ -127,10 +127,10 @@ const editTripPointFormTemplete = (point, offers, checkedOffers, destination, al
 
     <div class="event__field-group  event__field-group--time">
     <label class="visually-hidden" for="event-start-time-${id}">From</label>
-    <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value="${humanizeDate(dateFrom, DATE_FORMAT.fullDateTime)}"
+    <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value="${humanizeDate(dateFrom, DATE_FORMAT.FULL_DATE_TIME)}"
       &mdash;
       <label class="visually-hidden" for="event-end-time-${id}">To</label>
-        <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="${humanizeDate(dateTo, DATE_FORMAT.fullDateTime)}">
+      <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="${humanizeDate(dateTo, DATE_FORMAT.FULL_DATE_TIME)}">
     </div>
 
     <div class="event__field-group  event__field-group--price">
