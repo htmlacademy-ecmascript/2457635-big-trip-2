@@ -1,6 +1,6 @@
 import { render, replace, remove} from '../framework/render.js';
-import TripPointView from '../view/trip-point-view.js';
-import EditTripPointView from '../view/trip-point-edit-view.js';
+import PointView from '../view/point-view.js';
+import EditPointFormView from '../view/edit-point-form-view.js';
 import { Mode } from '../const.js';
 
 
@@ -27,7 +27,7 @@ export default class PointPresenter {
     this.#point = point;
 
 
-    this.#pointComponent = new TripPointView({
+    this.#pointComponent = new PointView({
       point: point,
       offers: [...this.#pointsModel.getOffersByTypeAndIds(point.type, point.offers)],
       destination: this.#pointsModel.getDestinationId(point.destination),
@@ -38,7 +38,7 @@ export default class PointPresenter {
       onFavoriteClick: this.#handleFavoriteClick,
     });
 
-    this.#pointEditComponent = new EditTripPointView({
+    this.#pointEditComponent = new EditPointFormView({
       point: point,
       checkedOffers: [...this.#pointsModel.getOffersByTypeAndIds(point.type, point.offers)],
       offers: this.#pointsModel.getOfferByType(point.type),

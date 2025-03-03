@@ -2,7 +2,7 @@ import SortView from '../view/sort-view.js';
 import ListView from '../view/list.view.js';
 import { render, RenderPosition } from '../framework/render.js';
 import NoPointView from '../view/no-point-view.js';
-import PointPresenter from '../point-presenter.js';
+import PointPresenter from './point-presenter.js';
 import { updateItem } from '../utils.js/common.js';
 import { SortType } from '../const.js';
 import { sortPointByDay, sortPointByTime, sortPointByPrice } from '../utils.js/point.js';
@@ -11,7 +11,7 @@ export default class EventPresenter {
   #pointsModel;
 
   #listOfTrips = new ListView();
-  #sortComponent = new SortView();
+  #sortComponent = null;
   #noPointComponent = new NoPointView();
 
   #tripPoints = [];
