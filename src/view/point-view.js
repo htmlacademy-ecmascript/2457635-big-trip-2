@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { humanizeDate } from '../utils.js/point.js';
+import { humanizeDate, durationOfTrip} from '../utils.js/point.js';
 import { DATE_FORMAT } from '../const.js';
 
 const createOfferTemplate = ({title, price}) =>
@@ -27,7 +27,7 @@ const createTripPointTemplete = (point, offers, destination) => {
       &mdash;
       <time class="event__end-time" datetime="${dateTo}">${humanizeDate(dateTo, DATE_FORMAT.HOURS)}</time>
     </p>
-    <p class="event__duration">30M</p>
+    <p class="event__duration">${durationOfTrip(dateFrom, dateTo)}</p>
   </div>
   <p class="event__price">
   &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
@@ -53,16 +53,20 @@ export default class PointView extends AbstractView {
   #offers = null;
   #destination = null;
   #handleEditClick = null;
+  #handleFavoriteClick = null;
 
-  constructor({point, offers, destination, onEditClick}) {
+  constructor({point, offers, destination, onEditClick, onFavoriteClick}) {
     super();
     this.#point = point;
     this.#offers = offers;
     this.#destination = destination;
     this.#handleEditClick = onEditClick;
+    this.#handleFavoriteClick = onFavoriteClick;
 
     this.element.querySelector('.event__rollup-btn')
       .addEventListener('click', this.#editClickHandler);
+    this.element.querySelector('.event__favorite-btn')
+      .addEventListener('click', this.#favoriteClickHandler);
   }
 
   get template() {
@@ -72,5 +76,10 @@ export default class PointView extends AbstractView {
   #editClickHandler = (evt) => {
     evt.preventDefault();
     this.#handleEditClick();
+  };
+
+  #favoriteClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFavoriteClick();
   };
 }
