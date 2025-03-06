@@ -1,9 +1,10 @@
 import { getRandomArrayElement } from '../utils.js/common';
+import { nanoid } from 'nanoid';
 
 const mockPoints = [
   {
     id: 'f4b62099-293f-4c3d-a702-94eec4a2808c',
-    basePrice: 1100,
+    basePrice: 1600,
     dateFrom: '2025-08-20T22:55:56.845Z',
     dateTo: '2025-08-21T11:22:13.375Z',
     destination: 'bfa5cb75-a1fe-4b77-a83c-0e528e910e01',
@@ -42,7 +43,10 @@ const mockPoints = [
 ];
 
 function getRandomPoint() {
-  return getRandomArrayElement(mockPoints);
+  return {
+    id: nanoid(),
+    ...getRandomArrayElement(mockPoints)
+  };
 }
 
 export {getRandomPoint};
