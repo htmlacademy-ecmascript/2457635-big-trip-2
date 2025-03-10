@@ -34,13 +34,13 @@ export default class EventPresenter {
 
   #handleModeChange = () => {
     this.#pointPresenters.forEach((presenter) => presenter.resetView());
-  }
+  };
 
   #handlePointChange = (updatedPoint) => {
     this.#tripPoints = updateItem(this.#tripPoints, updatedPoint);
     this.#sourcedBoardPoints = updateItem(this.#sourcedBoardPoints, updatedPoint);
     this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
-  }
+  };
 
   #sortPoints(sortType) {
     switch (sortType) {
@@ -112,7 +112,7 @@ export default class EventPresenter {
       this.#renderNoPoint();
       return;
     }
-      this.#renderSort();
-    }
+    this.#renderSort();
   }
+}
 

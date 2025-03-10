@@ -19,7 +19,7 @@ export default class PointPresenter {
     this.#pointsModel = pointsModel;
     this.#handleDataChange = onDataChange;
     this.#handleModeChange = onModeChange;
-  };
+  }
 
   init(point) {
     const prevPointComponent = this.#pointComponent;
@@ -102,9 +102,9 @@ export default class PointPresenter {
     this.#handleDataChange({...this.#point, isFavorite: !this.#point.isFavorite});
   };
 
-  // #handleFormSubmit = (point) => {
-  //   this.#handleDataChange(point);
-  //   this.#replaceFormToCard();
-  // };
+  #handleFormSubmit = (point) => {
+    this.#handleDataChange(point);
+    this.#replaceFormToCard();
+  };
 
 }
