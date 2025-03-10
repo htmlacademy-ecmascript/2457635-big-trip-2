@@ -15,42 +15,42 @@ const createTripPointFormTemplete = () => `<form class="event event--edit" actio
 
           <div class="event__type-item">
             <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
-            <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
+            <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">taxi</label>
           </div>
 
           <div class="event__type-item">
             <input id="event-type-bus-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="bus" checked>
-            <label class="event__type-label  event__type-label--bus" for="event-type-bus-1">Bus</label>
+            <label class="event__type-label  event__type-label--bus" for="event-type-bus-1">bus</label>
           </div>
 
           <div class="event__type-item">
             <input id="event-type-train-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="train">
-            <label class="event__type-label  event__type-label--train" for="event-type-train-1">Train</label>
+            <label class="event__type-label  event__type-label--train" for="event-type-train-1">train</label>
           </div>
 
           <div class="event__type-item">
             <input id="event-type-ship-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship">
-            <label class="event__type-label  event__type-label--ship" for="event-type-ship-1">Ship</label>
+            <label class="event__type-label  event__type-label--ship" for="event-type-ship-1">ship</label>
           </div>
 
           <div class="event__type-item">
             <input id="event-type-drive-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="drive">
-            <label class="event__type-label  event__type-label--drive" for="event-type-drive-1">Drive</label>
+            <label class="event__type-label  event__type-label--drive" for="event-type-drive-1">drive</label>
           </div>
 
           <div class="event__type-item">
             <input id="event-type-flight-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="flight">
-            <label class="event__type-label  event__type-label--flight" for="event-type-flight-1">Flight</label>
+            <label class="event__type-label  event__type-label--flight" for="event-type-flight-1">flight</label>
           </div>
 
           <div class="event__type-item">
             <input id="event-type-check-in-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="check-in">
-            <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-1">Check-in</label>
+            <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-1">check-in</label>
           </div>
 
           <div class="event__type-item">
             <input id="event-type-sightseeing-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="sightseeing">
-            <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-1">Sightseeing</label>
+            <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-1">sightseeing</label>
           </div>
 
             <div class="event__type-item">

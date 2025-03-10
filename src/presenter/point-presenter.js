@@ -61,6 +61,7 @@ export default class PointPresenter {
 
     if(this.#mode === Mode.EDITING) {
       replace(this.#pointComponent, prevPointEditComponent);
+      this.#mode = Mode.DEFAULT;
     }
 
     remove(prevPointComponent);
@@ -101,9 +102,9 @@ export default class PointPresenter {
     this.#handleDataChange({...this.#point, isFavorite: !this.#point.isFavorite});
   };
 
-  #handleFormSubmit = (point) => {
-    this.#handleDataChange(point);
-    this.#replaceFormToCard();
-  };
+  // #handleFormSubmit = (point) => {
+  //   this.#handleDataChange(point);
+  //   this.#replaceFormToCard();
+  // };
 
 }
