@@ -23,11 +23,11 @@ export default class EventPresenter {
   constructor({container, pointsModel}) {
     this.#boardContainer = container;
     this.#pointsModel = pointsModel;
-  };
+    this.#tripPoints = [...this.#pointsModel.points];
+  }
 
   init() {
-    this.#tripPoints = [...this.#pointsModel.points];
-    this.#sourcedBoardPoints = [...this.#pointsModel.points];
+    // this.#sourcedBoardPoints = [...this.#pointsModel.points];
     this.#sortPoints(this.#currentSortType);
     this.#renderBoard();
   }
@@ -38,7 +38,7 @@ export default class EventPresenter {
 
   #handlePointChange = (updatedPoint) => {
     this.#tripPoints = updateItem(this.#tripPoints, updatedPoint);
-    this.#sourcedBoardPoints = updateItem(this.#sourcedBoardPoints, updatedPoint);
+    // this.#sourcedBoardPoints = updateItem(this.#sourcedBoardPoints, updatedPoint);
     this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
   };
 
@@ -112,7 +112,7 @@ export default class EventPresenter {
       this.#renderNoPoint();
       return;
     }
-      this.#renderSort();
-    }
+    this.#renderSort();
   }
+}
 

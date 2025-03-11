@@ -69,17 +69,17 @@ const editTripPointFormTemplete = (point, offers, checkedOffers, destination, al
 
           <div class="event__type-item">
           <input id="event-type-taxi-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
-          <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-${id}">Taxi</label>
+          <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-${id}">taxi</label>
           </div>
 
           <div class="event__type-item">
           <input id="event-type-bus-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="bus">
-          <label class="event__type-label  event__type-label--bus" for="event-type-bus-${id}">Bus</label>
+          <label class="event__type-label  event__type-label--bus" for="event-type-bus-${id}">bus</label>
           </div>
 
           <div class="event__type-item">
           <input id="event-type-train-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="train">
-          <label class="event__type-label  event__type-label--train" for="event-type-train-${id}">Train</label>
+          <label class="event__type-label  event__type-label--train" for="event-type-train-${id}">train</label>
           </div>
 
           <div class="event__type-item">
@@ -89,27 +89,27 @@ const editTripPointFormTemplete = (point, offers, checkedOffers, destination, al
 
           <div class="event__type-item">
           <input id="event-type-drive-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="drive">
-          <label class="event__type-label  event__type-label--drive" for="event-type-drive-${id}">Drive</label>
+          <label class="event__type-label  event__type-label--drive" for="event-type-drive-${id}">drive</label>
           </div>
 
           <div class="event__type-item">
           <input id="event-type-flight-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="flight" checked>
-          <label class="event__type-label  event__type-label--flight" for="event-type-flight-${id}">Flight</label>
+          <label class="event__type-label  event__type-label--flight" for="event-type-flight-${id}">flight</label>
           </div>
 
           <div class="event__type-item">
           <input id="event-type-check-in-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="check-in">
-          <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-${id}">Check-in</label>
+          <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-${id}">check-in</label>
           </div>
 
           <div class="event__type-item">
           <input id="event-type-sightseeing-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="sightseeing">
-          <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-${id}">Sightseeing</label>
+          <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-${id}">sightseeing</label>
           </div>
 
           <div class="event__type-item">
           <input id="event-type-restaurant-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="restaurant">
-          <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-${id}">Restaurant</label>
+          <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-${id}">restaurant</label>
           </div>
         </fieldset>
       </div>
@@ -147,13 +147,14 @@ const editTripPointFormTemplete = (point, offers, checkedOffers, destination, al
       <span class="visually-hidden">Open event</span>
     </button>
   </header>
+   <section class="event__details">
+     ${createListOfferTemplate(offers, checkedOffers)}
 
-    ${createListOfferTemplate(offers, checkedOffers)}
-
-    <section class="event__section  event__section--destination">
-      <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-       <p class="event__destination-description">${description}</p>
-        ${createPhotosContainerTemplate(pictures)}
+     <section class="event__section  event__section--destination">
+       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+        <p class="event__destination-description">${description}</p>
+         ${createPhotosContainerTemplate(pictures)}
+     </section>
     </section>
   </section>
 </form>`;

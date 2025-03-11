@@ -5,7 +5,7 @@ const DATE_FORMAT = {
   TIME: 'HH[H] mm[M]',
 };
 
-const POINT_COUNT = 4;
+const POINT_COUNT = 3;
 
 const FilterType = {
   EVERYTHING: 'everything',

@@ -19,7 +19,7 @@ export default class PointPresenter {
     this.#pointsModel = pointsModel;
     this.#handleDataChange = onDataChange;
     this.#handleModeChange = onModeChange;
-  };
+  }
 
   init(point) {
     const prevPointComponent = this.#pointComponent;
@@ -61,6 +61,7 @@ export default class PointPresenter {
 
     if(this.#mode === Mode.EDITING) {
       replace(this.#pointComponent, prevPointEditComponent);
+      this.#mode = Mode.DEFAULT;
     }
 
     remove(prevPointComponent);
