@@ -141,23 +141,18 @@ export default class EditPointView extends AbstractStatefulView {
     this.#allDestinations = allDestinations;
     this._setState(EditPointView.parsePointToState({ point, offers, destination }));
     this.point = point;
-
     this.#handleFormSubmit = onFormSubmit;
     this._restoreHandlers();
   }
 
   _restoreHandlers() {
     this.element.addEventListener('submit', this.#formSubmitHandler);
-
     this.element.querySelector('.event__rollup-btn')
-      .addEventListener('click', this._formCloseHandler);
-
+      .addEventListener('click', this.#formCloseHandler);
     this.element.querySelectorAll('.event__offer-selector')
       .forEach((item) => item.addEventListener('change', this.#eventChangeHandler));
-
     this.element.querySelectorAll('.event__type-item input')
       .forEach((item) => item.addEventListener('change', this.#pointTypeChangeHandler));
-
     this.element.querySelector('.event__input--destination')
       .addEventListener('blur', this.#pointDestinationBlurHandler);
   }
@@ -214,5 +209,20 @@ export default class EditPointView extends AbstractStatefulView {
     evt.preventDefault();
     this.#handleFormSubmit(EditPointView.parseStateToPoint(this._state.point));
   };
+
+  #formCloseHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFormSubmit(EditPointView.parseStateToPoint(this.point));
+  };
+
+
+  get template() {
+    return editTripPointFormTemplete(this._state, this.#allDestinations);
+  }
+
+  reset(point, offer, destination) {
+    this.updateElement(EditPointView.parsePointToState({point, offer, destination}),
+    );
+  }
 }
 
