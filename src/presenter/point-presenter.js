@@ -2,6 +2,7 @@ import { render, replace, remove} from '../framework/render.js';
 import PointView from '../view/point-view.js';
 import EditPointFormView from '../view/edit-point-form-view.js';
 import { Mode } from '../const.js';
+import { getDestinationId, getOffersByType, getOffersByTypeAndIds } from '../utils/point.js';
 
 
 export default class PointPresenter {
@@ -11,6 +12,8 @@ export default class PointPresenter {
   #pointEditComponent = null;
   #pointsModel;
   #point = null;
+  #offer = null;
+  #destination = null;
   #handleModeChange = null;
   #mode = Mode.DEFAULT;
 
@@ -25,12 +28,14 @@ export default class PointPresenter {
     const prevPointComponent = this.#pointComponent;
     const prevPointEditComponent = this.#pointEditComponent;
     this.#point = point;
+    this.#offer = getOffersByType(point.type) || {};
+    this.#destination = getDestinationId(point.destination) || {};
 
 
     this.#pointComponent = new PointView({
       point: point,
-      offers: [...this.#pointsModel.getOffersByTypeAndIds(point.type, point.offers)],
-      destination: this.#pointsModel.getDestinationId(point.destination),
+      offers: [...getOffersByTypeAndIds(point.type, point.offers)],
+      destination: getDestinationId(point.destination),
       onEditClick: () => {
         this.#replaceCardToForm();
         document.addEventListener('keydown', this.#escKeyDownHandler);
@@ -39,15 +44,12 @@ export default class PointPresenter {
     });
 
     this.#pointEditComponent = new EditPointFormView({
-      point: point,
-      checkedOffers: [...this.#pointsModel.getOffersByTypeAndIds(point.type, point.offers)],
-      offers: this.#pointsModel.getOfferByType(point.type),
-      allDestinations: this.#pointsModel.getDestination(point.destination),
-      destination: this.#pointsModel.getDestinationId(point.destination),
-      onFormSubmit: () => {
-        this.#replaceFormToCard();
-        document.removeEventListener('keydown', this.#escKeyDownHandler);
-      }
+
+      point: this.#point,
+      offers: getOffersByType(point.type) || {},
+      destination: getDestinationId(point.destination),
+      allDestinations: this.#pointsModel.destination,
+      onFormSubmit: this.#handleFormSubmit,
     });
 
     if(prevPointEditComponent === null || prevPointComponent === null) {
@@ -60,7 +62,7 @@ export default class PointPresenter {
     }
 
     if(this.#mode === Mode.EDITING) {
-      replace(this.#pointComponent, prevPointEditComponent);
+      replace(this.#pointEditComponent, prevPointEditComponent);
       this.#mode = Mode.DEFAULT;
     }
 
@@ -76,13 +78,15 @@ export default class PointPresenter {
   #escKeyDownHandler = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
+      this.#pointEditComponent.reset(this.#point, this.#offer, this.#destination);
       this.#replaceFormToCard();
-      document.removeEventListener('keydown', this.#escKeyDownHandler);
+
     }
   };
 
   resetView() {
     if (this.#mode !== Mode.DEFAULT) {
+      this.#pointEditComponent.reset(this.#point, this.#offer, this.#destination);
       this.#replaceFormToCard();
     }
   }
@@ -96,6 +100,7 @@ export default class PointPresenter {
   #replaceFormToCard() {
     replace(this.#pointComponent, this.#pointEditComponent);
     this.#mode = Mode.DEFAULT;
+    document.removeEventListener('keydown', this.#escKeyDownHandler);
   }
 
   #handleFavoriteClick = () => {

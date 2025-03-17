@@ -1,13 +1,13 @@
-import AbstractView from '../framework/view/abstract-view.js';
-import { humanizeDate } from '../utils.js/point.js';
-import { DATE_FORMAT } from '../const.js';
+import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
+import { DATE_FORMAT, POINT_TYPES } from '../const.js';
+import { humanizeDate, getOffersByType, getDestinationByName } from '../utils/point.js';
 
 const createOfferTemplate = (offer, checkedOffers) => {
   const {id, title, price} = offer;
-  const isChecked = checkedOffers.map((item) => item.id).includes(id) ? ' checked' : '';
+  const isChecked = (checkedOffers?.includes(id));
   return `
   <div class="event__offer-selector">
-   <input class="event__offer-checkbox  visually-hidden" id="${id}" type="checkbox" name="${id}"${isChecked}>
+  <input class="event__offer-checkbox  visually-hidden" id="${id}" type="checkbox" name="${id}" ${isChecked ? 'checked' : ''}>
      <label class="event__offer-label" for="${id}">
        <span class="event__offer-title">${title}</span>
         &plus;&euro;&nbsp;
@@ -17,18 +17,19 @@ const createOfferTemplate = (offer, checkedOffers) => {
   `;
 };
 
-const createListOfferTemplate = ({offers} = {}, checkedOffers) => {
-  if(offers === undefined){
+const createListOfferTemplate = (offers, checkedOffers) => {
+  if (offers === undefined) {
     return '';
   }
 
-  return`
+  return `
     <section class="event__section  event__section--offers">
      <h3 class="event__section-title  event__section-title--offers">Offers</h3>
       <div class="event__available-offers">
-      ${offers.map((offer) => createOfferTemplate(offer, checkedOffers)).join('') || ''}
+      ${offers.map((offer) => createOfferTemplate(offer, checkedOffers)).join('')}
       </div>
-    </section>`;
+    </section>
+    `;
 };
 
 const createPhotoTemplate = ({src, description}) => `<img class="event__photo" src="${src}" alt="${description}"></img>`;
@@ -49,10 +50,23 @@ const createPhotosContainerTemplate = (pictures) => {
 
 const createDatalistOptionsTemplate = ({name}) => `<option value="${name}"></option>`;
 
+function createPointTypeItem(pointId, pointType, currentPointType) {
+  const isChecked = pointType === currentPointType ? 'checked' : '';
+  const labelTitle = pointType[0].toUpperCase() + pointType.slice(1);
+  return (
+    `<div class="event__type-item">
+      <input id="event-type-${pointType}-${pointId}" class="event__type-input  visually-hidden" type="radio" name="event-type" value=${pointType} ${isChecked} }>
+      <label class="event__type-label  event__type-label--${pointType}" for="event-type-${pointType}-${pointId}">${labelTitle}</label>
+    </div>`
+  );
+}
 
-const editTripPointFormTemplete = (point, offers, checkedOffers, destination, allDestinations) => {
-  const { type, dateFrom, dateTo, basePrice, id } = point;
-  const { name, description, pictures } = destination;
+const editTripPointFormTemplete = (state, allDestinations) => {
+  const { type, dateFrom, dateTo, basePrice, id } = state.point;
+  const {offers} = state.offersForState;
+  const checkedOffers = state.point.offers;
+  const { name, description, pictures } = state.destinationForState;
+
   return `
 <form class="event event--edit" action="#" method="post">
   <header class="event__header">
@@ -67,50 +81,7 @@ const editTripPointFormTemplete = (point, offers, checkedOffers, destination, al
         <fieldset class="event__type-group">
           <legend class="visually-hidden">Event type</legend>
 
-          <div class="event__type-item">
-          <input id="event-type-taxi-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
-          <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-${id}">taxi</label>
-          </div>
-
-          <div class="event__type-item">
-          <input id="event-type-bus-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="bus">
-          <label class="event__type-label  event__type-label--bus" for="event-type-bus-${id}">bus</label>
-          </div>
-
-          <div class="event__type-item">
-          <input id="event-type-train-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="train">
-          <label class="event__type-label  event__type-label--train" for="event-type-train-${id}">train</label>
-          </div>
-
-          <div class="event__type-item">
-          <input id="event-type-ship-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship">
-          <label class="event__type-label  event__type-label--ship" for="event-type-ship-${id}">ship</label>
-          </div>
-
-          <div class="event__type-item">
-          <input id="event-type-drive-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="drive">
-          <label class="event__type-label  event__type-label--drive" for="event-type-drive-${id}">drive</label>
-          </div>
-
-          <div class="event__type-item">
-          <input id="event-type-flight-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="flight" checked>
-          <label class="event__type-label  event__type-label--flight" for="event-type-flight-${id}">flight</label>
-          </div>
-
-          <div class="event__type-item">
-          <input id="event-type-check-in-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="check-in">
-          <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-${id}">check-in</label>
-          </div>
-
-          <div class="event__type-item">
-          <input id="event-type-sightseeing-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="sightseeing">
-          <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-${id}">sightseeing</label>
-          </div>
-
-          <div class="event__type-item">
-          <input id="event-type-restaurant-${id}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="restaurant">
-          <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-${id}">restaurant</label>
-          </div>
+          ${POINT_TYPES.map((pointType) => createPointTypeItem(id, pointType, type)).join('')}
         </fieldset>
       </div>
     </div>
@@ -157,36 +128,101 @@ const editTripPointFormTemplete = (point, offers, checkedOffers, destination, al
      </section>
     </section>
   </section>
-</form>`;
+</form>
+`;
 };
-export default class EditPointFormView extends AbstractView {
-  #point = null;
-  #checkedOffers = null;
-  #offers = null;
-  #destination = null;
-  #destinationAll = null;
+
+export default class EditPointView extends AbstractStatefulView {
+  #allDestinations = null;
   #handleFormSubmit = null;
 
-  constructor({point, offers, destination, checkedOffers, allDestinations, onFormSubmit}){
+  constructor({point, offers, destination, allDestinations, onFormSubmit}) {
     super();
-    this.#point = point;
-    this.#checkedOffers = checkedOffers;
-    this.#offers = offers;
-    this.#destination = destination;
-    this.#destinationAll = allDestinations;
-
+    this.#allDestinations = allDestinations;
+    this._setState(EditPointView.parsePointToState({ point, offers, destination }));
+    this.point = point;
     this.#handleFormSubmit = onFormSubmit;
-    this.element.querySelector('.event__rollup-btn')
-      .addEventListener('click', this.#formSubmitHandler);
+    this._restoreHandlers();
   }
 
-  get template() {
-    return editTripPointFormTemplete(this.#point, this.#offers, this.#checkedOffers, this.#destination, this.#destinationAll);
+  _restoreHandlers() {
+    this.element.addEventListener('submit', this.#formSubmitHandler);
+    this.element.querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#formCloseHandler);
+    this.element.querySelectorAll('.event__offer-selector')
+      .forEach((item) => item.addEventListener('change', this.#eventChangeHandler));
+    this.element.querySelectorAll('.event__type-item input')
+      .forEach((item) => item.addEventListener('change', this.#pointTypeChangeHandler));
+    this.element.querySelector('.event__input--destination')
+      .addEventListener('blur', this.#pointDestinationBlurHandler);
   }
+
+  #pointTypeChangeHandler = (evt) => {
+    evt.preventDefault();
+    const updatedOffers = getOffersByType(evt.target.value)?.offers;
+    this.updateElement({
+      ...this._state,
+      point: {...this._state.point, type: evt.target.value },
+      offersForState: { type: evt.target.value, offers: updatedOffers },
+    });
+  };
+
+  #eventChangeHandler = (evt) => {
+    const offerId = evt.target.id;
+    const isChecked = evt.target.checked;
+
+    const updatedCheckedOffers = isChecked
+      ? [...this._state.point.offers, offerId]
+      : this._state.point.offers.filter((id) => id !== offerId);
+
+    this.updateElement({
+      ...this._state,
+      point: {
+        ...this._state.point,
+        offers: updatedCheckedOffers,
+      },
+    });
+  };
+
+  #pointDestinationBlurHandler = (evt) => {
+    evt.preventDefault();
+    const updatedDestination = getDestinationByName(evt.target.value);
+    this.updateElement({
+      ...this._state,
+      point: {...this._state.point, destination: updatedDestination.id },
+      destinationForState: { ...updatedDestination },
+    });
+  };
+
+  static parsePointToState = ({ point, offers, destination}) => ({
+    point: { ...point },
+    offersForState: { ...(offers || getOffersByType(point.type)) },
+    destinationForState: { ...destination }
+  });
+
+  static parseStateToPoint = (state) => {
+    const point = {...state};
+    return point;
+  };
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormSubmit(this.#point);
+    this.#handleFormSubmit(EditPointView.parseStateToPoint(this._state.point));
   };
+
+  #formCloseHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFormSubmit(EditPointView.parseStateToPoint(this.point));
+  };
+
+
+  get template() {
+    return editTripPointFormTemplete(this._state, this.#allDestinations);
+  }
+
+  reset(point, offer, destination) {
+    this.updateElement(EditPointView.parsePointToState({point, offer, destination}),
+    );
+  }
 }
 

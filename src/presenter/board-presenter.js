@@ -3,10 +3,10 @@ import ListView from '../view/list.view.js';
 import { render, RenderPosition } from '../framework/render.js';
 import NoPointView from '../view/no-point-view.js';
 import PointPresenter from './point-presenter.js';
-import { updateItem } from '../utils.js/common.js';
+import { updateItem } from '../utils/common.js';
 import { SortType } from '../const.js';
-import { sortPointByDay, sortPointByTime, sortPointByPrice } from '../utils.js/point.js';
-export default class EventPresenter {
+import { sortPointByDay, sortPointByTime, sortPointByPrice } from '../utils/point.js';
+export default class BoardPresenter {
   #boardContainer;
   #pointsModel;
 
@@ -37,7 +37,7 @@ export default class EventPresenter {
   };
 
   #handlePointChange = (updatedPoint) => {
-    this.#tripPoints = updateItem(this.#tripPoints, updatedPoint);
+    this.#tripPoints = [...updateItem(this.#tripPoints, updatedPoint)];
     // this.#sourcedBoardPoints = updateItem(this.#sourcedBoardPoints, updatedPoint);
     this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
   };
