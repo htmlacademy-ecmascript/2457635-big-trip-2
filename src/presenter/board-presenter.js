@@ -6,7 +6,7 @@ import PointPresenter from './point-presenter.js';
 import { updateItem } from '../utils/common.js';
 import { SortType } from '../const.js';
 import { sortPointByDay, sortPointByTime, sortPointByPrice } from '../utils/point.js';
-export default class EventPresenter {
+export default class BoardPresenter {
   #boardContainer;
   #pointsModel;
 
