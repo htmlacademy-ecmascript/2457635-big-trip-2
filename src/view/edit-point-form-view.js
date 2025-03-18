@@ -160,7 +160,7 @@ export default class EditPointView extends AbstractStatefulView {
     this.element.querySelector('.event__input--destination')
       .addEventListener('blur', this.#pointDestinationBlurHandler);
 
-      this.#setDatepicker();
+    this.#setDatepicker();
   }
 
   #pointTypeChangeHandler = (evt) => {
@@ -228,6 +228,7 @@ export default class EditPointView extends AbstractStatefulView {
         onChange: this.#startDateChangeHandler,
       }
     );
+
     this.#endDatepicker = flatpickr(
       this.element.querySelector('input[name=event-end-time]'),
       {
