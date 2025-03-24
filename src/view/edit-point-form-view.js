@@ -273,8 +273,6 @@ export default class EditPointView extends AbstractStatefulView {
     this.#startDatepicker = flatpickr(
       this.element.querySelector('input[name=event-start-time]'),
       {
-        // minDate: new Date(),
-        // maxDate: this._state.point.dateTo ? new Date(this._state.point.dateTo) : null,
         enableTime: true,
         dateFormat: 'd/m/y H:i',
         defaultDate: this._state.pointForState.dateFrom,
