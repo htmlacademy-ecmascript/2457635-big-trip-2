@@ -1,6 +1,5 @@
 import {remove, render, RenderPosition} from '../framework/render.js';
 import EditPointView from '../view/edit-point-form-view.js';
-// import {nanoid} from 'nanoid';
 import {UserAction, UpdateType} from '../const.js';
 import { getOffersByType } from '../utils/point.js';
 
