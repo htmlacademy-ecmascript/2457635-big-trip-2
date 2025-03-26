@@ -12,7 +12,10 @@ export default class PointPresenter {
   #pointEditComponent = null;
   #point = null;
   #offer = null;
+  #offers = null;
   #destination = null;
+  #destinations = null;
+
   #mode = Mode.DEFAULT;
 
   constructor({boardComponent, pointsModel, onDataChange, onModeChange}) {
@@ -26,14 +29,16 @@ export default class PointPresenter {
     const prevPointComponent = this.#pointComponent;
     const prevPointEditComponent = this.#pointEditComponent;
     this.#point = point;
-    this.#offer = getOffersByType(point.type) || {};
-    this.#destination = getDestinationId(point.destination) || {};
+    this.#offers = this.#pointsModel.offers;
+    this.#destinations = this.#pointsModel.destinations;
+    this.#offer = getOffersByType(point.type, this.#offers) || {};
+    this.#destination = getDestinationId(point.destination, this.#destinations) || {};
 
 
     this.#pointComponent = new PointView({
       point: point,
-      offers: [...getOffersByTypeAndIds(point.type, point.offers)],
-      destination: getDestinationId(point.destination),
+      offers: [...getOffersByTypeAndIds(point.type, point.offers, this.#offers)],
+      destination: getDestinationId(point.destination, this.#destinations),
       onEditClick: () => {
         this.#replaceCardToForm();
         document.addEventListener('keydown', this.#escKeyDownHandler);
@@ -45,9 +50,10 @@ export default class PointPresenter {
     this.#pointEditComponent = new EditPointFormView({
 
       point: this.#point,
-      offers: getOffersByType(point.type) || {},
-      destination: getDestinationId(point.destination),
-      allDestinations: this.#pointsModel.destination,
+      offers: getOffersByType(point.type, this.#offers) || {},
+      destination: getDestinationId(point.destination, this.#destinations),
+      allDestinations: this.#destinations,
+      allOffers: this.#offers,
       onFormSubmit: this.#handleFormSubmit,
       onDeleteClick: this.#handleDeleteClick,
       onFormClose: this.#handleFormClose,
@@ -99,6 +105,39 @@ export default class PointPresenter {
     }
   }
 
+  setSaving() {
+    if (this.#mode === Mode.EDITING) {
+      this.#pointEditComponent.updateElement({
+        isDisabled: true,
+        isSaving: true,
+      });
+    }
+  }
+
+  setDeleting() {
+    if (this.#mode === Mode.EDITING) {
+      this.#pointEditComponent.updateElement({
+        isDisabled: true,
+        isDeleting: true,
+      });
+    }
+  }
+
+  setAborting() {
+    if (this.#mode === Mode.DEFAULT) {
+      this.#pointComponent.shake();
+      return;
+    }
+    const resetFormState = () => {
+      this.#pointEditComponent.updateElement({
+        isDisabled: false,
+        isSaving: false,
+        isDeleting: false,
+      });
+    };
+    this.#pointEditComponent.shake(resetFormState);
+  }
+
   #replaceCardToForm() {
     replace(this.#pointEditComponent, this.#pointComponent);
     this.#handleModeChange();
@@ -121,12 +160,15 @@ export default class PointPresenter {
   };
 
   #handleFormSubmit = (point) => {
+    if(point.basePrice === 0 || point.basePrice > 100000 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
+      this.setAborting();
+      return;
+    }
     this.#handleDataChange(
       UserAction.UPDATE_POINT,
       UpdateType.MINOR,
       point,
     );
-    this.#replaceFormToCard();
   };
 
   #handleDeleteClick = (point) => {
