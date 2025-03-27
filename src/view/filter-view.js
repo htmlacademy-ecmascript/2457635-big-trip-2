@@ -16,12 +16,6 @@ const createFilterItemTemplate = (filter, currentFilterType) => {
   );
 };
 
-// const createFilterTemplate = (filterItems) =>
-//   `<form class="trip-filters" action="#" method="get">
-//   ${filterItems.map((filterItem, index) => createFilterItemTemplate(filterItem, index === 0)).join('')}
-//   <button class="visually-hidden" type="submit">Accept filter</button>
-//   </form>`;
-
 const createFilterTemplate = (filterItems, currentFilterType) =>
   `<div class="trip-main__trip-controls  trip-controls">
      <div class="trip-controls__filters">

@@ -29,7 +29,6 @@ const createSortTemplete = (currentSortType) =>
       </div>
     </form>`;
 
-
 export default class SortView extends AbstractView {
   #handleSortTypeChange = null;
   #currentSortType = null;
