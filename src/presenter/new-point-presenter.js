@@ -82,6 +82,7 @@ export default class NewPointPresenter {
       this.setAborting();
       return;
     }
+
     this.#handleDataChange(
       UserAction.ADD_POINT,
       UpdateType.MINOR,
