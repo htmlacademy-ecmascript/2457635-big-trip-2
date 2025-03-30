@@ -36,7 +36,7 @@ export default class NewPointPresenter {
         id: '',
         description: '',
         name: '',
-        pictures: []
+        pictures: [],
       },
       allDestinations: this.#pointsModel.destinations,
       allOffers: this.#pointsModel.offers,
@@ -88,7 +88,7 @@ export default class NewPointPresenter {
       UpdateType.MINOR,
       point,
     );
-    this.destroy()
+    // this.destroy();
   };
 
   #handleDeleteClick = () => {

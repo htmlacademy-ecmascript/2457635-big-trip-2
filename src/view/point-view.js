@@ -1,6 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { humanizeDate, durationOfTrip} from '../utils/point.js';
-import { DATE_FORMAT } from '../const.js';
+import { DateFormat } from '../const.js';
 
 const createOfferTemplate = ({title, price}) =>
   `<li class="event__offer">
@@ -16,16 +16,16 @@ const createTripPointTemplete = (point, offers, destination) => {
   return `
 <li class="trip-events__item">
 <div class="event">
-<time class="event__date" datetime="${dateFrom}">${humanizeDate(dateFrom, DATE_FORMAT.MONTH_DAY)}</time>
+<time class="event__date" datetime="${dateFrom}">${humanizeDate(dateFrom, DateFormat.MONTH_DAY)}</time>
   <div class="event__type">
   <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
   </div>
   <h3 class="event__title">${type} at ${name}</h3>
   <div class="event__schedule">
     <p class="event__time">
-    <time class="event__start-time" datetime="${dateFrom}">${humanizeDate(dateFrom, DATE_FORMAT.HOURS)}</time>
+    <time class="event__start-time" datetime="${dateFrom}">${humanizeDate(dateFrom, DateFormat.HOURS)}</time>
       &mdash;
-      <time class="event__end-time" datetime="${dateTo}">${humanizeDate(dateTo, DATE_FORMAT.HOURS)}</time>
+      <time class="event__end-time" datetime="${dateTo}">${humanizeDate(dateTo, DateFormat.HOURS)}</time>
     </p>
     <p class="event__duration">${durationOfTrip(dateFrom, dateTo)}</p>
   </div>

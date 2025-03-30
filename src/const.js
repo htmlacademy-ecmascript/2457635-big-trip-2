@@ -1,13 +1,16 @@
-const DATE_FORMAT = {
+const DateFormat = {
   MONTH_DAY: 'MMM D',
   HOURS: 'HH:mm',
   FULL_DATE_TIME: 'DD/MM/YY HH:mm',
   TIME: 'HH[H] mm[M]',
 };
 
-const POINT_COUNT = 3;
-
-const POINT_TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
+const Method = {
+  GET: 'GET',
+  PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE',
+};
 
 const FilterType = {
   EVERYTHING: 'everything',
@@ -40,4 +43,9 @@ const UpdateType = {
   INIT: 'INIT',
 };
 
-export {DATE_FORMAT, POINT_COUNT, POINT_TYPES, FilterType, Mode, SortType, UserAction, UpdateType};
+const TimeLimit = {
+  LOWER_LIMIT: 350,
+  UPPER_LIMIT: 1000,
+};
+
+export {DateFormat, Method, FilterType, Mode, SortType, UserAction, UpdateType, TimeLimit };

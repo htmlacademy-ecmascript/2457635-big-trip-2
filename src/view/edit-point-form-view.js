@@ -1,5 +1,5 @@
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
-import { DATE_FORMAT, POINT_TYPES } from '../const.js';
+import { DateFormat } from '../const.js';
 import { humanizeDate, getOffersByType, getDestinationByName } from '../utils/point.js';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
@@ -78,11 +78,12 @@ function createPointTypeItem(pointId, pointType, currentPointType) {
   );
 }
 
-const editTripPointFormTemplete = (state, allDestinations) => {
+const editTripPointFormTemplete = (state, allDestinations, allOffers) => {
   const { type, dateFrom, dateTo, basePrice, id } = state.pointForState;
   const {offers} = state.offersForState;
   const checkedOffers = state.pointForState.offers;
   const { name } = state.destinationForState;
+  const {isDisabled, isDeleting, isSaving} = state;
 
   return `
 <form class="event event--edit" action="#" method="post">
@@ -97,8 +98,7 @@ const editTripPointFormTemplete = (state, allDestinations) => {
       <div class="event__type-list">
         <fieldset class="event__type-group">
           <legend class="visually-hidden">Event type</legend>
-
-          ${POINT_TYPES.map((pointType) => createPointTypeItem(id, pointType, type)).join('')}
+          ${(allOffers.map((offerItem)=> offerItem.type)).map((pointType) => createPointTypeItem(id, pointType, type)).join('')}
         </fieldset>
       </div>
     </div>
@@ -115,10 +115,10 @@ const editTripPointFormTemplete = (state, allDestinations) => {
 
     <div class="event__field-group  event__field-group--time">
     <label class="visually-hidden" for="event-start-time-${id}">From</label>
-    <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value="${humanizeDate(dateFrom, DATE_FORMAT.FULL_DATE_TIME)}"
+    <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value="${humanizeDate(dateFrom, DateFormat.FULL_DATE_TIME)}"
       &mdash;
       <label class="visually-hidden" for="event-end-time-${id}">—</label>
-      <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="${humanizeDate(dateTo, DATE_FORMAT.FULL_DATE_TIME)}">
+      <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="${humanizeDate(dateTo, DateFormat.FULL_DATE_TIME)}">
     </div>
 
     <div class="event__field-group  event__field-group--price">
@@ -129,8 +129,8 @@ const editTripPointFormTemplete = (state, allDestinations) => {
       <input class="event__input  event__input--price" id="event-price-${id}" type="number" name="event-price" value="${he.encode(String(basePrice))}">
     </div>
 
-    <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-    <button class="event__reset-btn" type="reset">Delete</button>
+    <button class="event__save-btn  btn  btn--blue" type="submit" ${isDisabled ? 'disabled' : ''}> ${isSaving ? 'Saving...' : 'Save'}</button>
+       <button class="event__reset-btn" type="reset" ${isDisabled ? 'disabled' : ''}> ${isDeleting ? 'Deleting...' : 'Delete'}</button>
     <button class="event__rollup-btn" type="button">
       <span class="visually-hidden">Open event</span>
     </button>
@@ -297,16 +297,24 @@ export default class EditPointView extends AbstractStatefulView {
   static parsePointToState = ({point, offers, destination}) => ({
     pointForState: { ...point },
     offersForState: { ...offers },
-    destinationForState: { ...destination }
+    destinationForState: { ...destination },
+    isDisabled: false,
+    isSaving: false,
+    isDeleting: false,
   });
 
   static parseStateToPoint = (state) => {
     const point = {...state};
+
+    delete point.isDisabled;
+    delete point.isSaving;
+    delete point.isDeleting;
+
     return point;
   };
 
   get template() {
-    return editTripPointFormTemplete(this._state, this.#allDestinations);
+    return editTripPointFormTemplete(this._state, this.#allDestinations, this.#allOffers);
   }
 
   reset(point, offers, destination) {
