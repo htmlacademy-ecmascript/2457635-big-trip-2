@@ -34,7 +34,6 @@ export default class PointPresenter {
     this.#offer = getOffersByType(point.type, this.#offers) || {};
     this.#destination = getDestinationId(point.destination, this.#destinations) || {};
 
-
     this.#pointComponent = new PointView({
       point: point,
       offers: [...getOffersByTypeAndIds(point.type, point.offers, this.#offers)],
@@ -48,7 +47,6 @@ export default class PointPresenter {
     });
 
     this.#pointEditComponent = new EditPointFormView({
-
       point: this.#point,
       offers: getOffersByType(point.type, this.#offers) || {},
       destination: getDestinationId(point.destination, this.#destinations),
@@ -160,7 +158,7 @@ export default class PointPresenter {
   };
 
   #handleFormSubmit = (point) => {
-    if(point.basePrice === 0 || point.basePrice > 100000 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
+    if(point.basePrice === 0 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
       this.setAborting();
       return;
     }

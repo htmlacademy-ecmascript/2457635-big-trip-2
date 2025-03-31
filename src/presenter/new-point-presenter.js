@@ -36,7 +36,7 @@ export default class NewPointPresenter {
         id: '',
         description: '',
         name: '',
-        pictures: []
+        pictures: [],
       },
       allDestinations: this.#pointsModel.destinations,
       allOffers: this.#pointsModel.offers,
@@ -78,7 +78,7 @@ export default class NewPointPresenter {
   }
 
   #handleFormSubmit = (point) => {
-    if(point.basePrice === 0 || point.basePrice > 100000 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
+    if(point.basePrice === 0 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
       this.setAborting();
       return;
     }
@@ -88,7 +88,7 @@ export default class NewPointPresenter {
       UpdateType.MINOR,
       point,
     );
-    this.destroy()
+    // this.destroy();
   };
 
   #handleDeleteClick = () => {
