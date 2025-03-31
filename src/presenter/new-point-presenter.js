@@ -78,7 +78,7 @@ export default class NewPointPresenter {
   }
 
   #handleFormSubmit = (point) => {
-    if(point.basePrice === 0 || point.basePrice > 100000 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
+    if(point.basePrice === 0 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
       this.setAborting();
       return;
     }
