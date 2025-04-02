@@ -3,6 +3,8 @@ const DateFormat = {
   HOURS: 'HH:mm',
   FULL_DATE_TIME: 'DD/MM/YY HH:mm',
   TIME: 'HH[H] mm[M]',
+  DAY_MONTH: 'D MMM',
+  DAY: 'D',
 };
 
 const Method = {
@@ -34,6 +36,7 @@ const UserAction = {
   UPDATE_POINT: 'UPDATE_POINT',
   ADD_POINT: 'ADD_POINT',
   DELETE_POINT: 'DELETE_POINT',
+  CANCEL_NEW_POINT: 'CANCEL_NEW_POINT',
 };
 
 const UpdateType = {
