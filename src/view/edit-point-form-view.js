@@ -104,7 +104,7 @@ const editTripPointFormTemplete = (state, allDestinations, allOffers) => {
   const { name } = state.destinationForState;
   const { isDisabled, isDeleting, isSaving } = state;
 
-return `
+  return `
 <form class="event event--edit" action="#" method="post">
   <header class="event__header">
     <div class="event__type-wrapper">
@@ -165,7 +165,6 @@ export default class EditPointView extends AbstractStatefulView {
   #allDestinations = null;
   #allOffers = null;
   #handleFormSubmit = null;
-  // #handleDeleteClick = null;
   #handleResetClick = null;
   #handleFormClose = null;
   #startDatepicker = null;
@@ -178,7 +177,6 @@ export default class EditPointView extends AbstractStatefulView {
     this._setState(EditPointView.parsePointToState({ point, offers, destination }));
     this.point = point;
     this.#handleFormSubmit = onFormSubmit;
-    // this.#handleDeleteClick = onDeleteClick;
     this.#handleResetClick = onResetClick;
     this.#handleFormClose = onFormClose;
     this._restoreHandlers();
@@ -188,12 +186,10 @@ export default class EditPointView extends AbstractStatefulView {
     this.element.addEventListener('submit', this.#formSubmitHandler);
     this.element.querySelector('.event__reset-btn')
       .addEventListener('click', this.#formResetClickHandler);
-    // this.element.querySelector('.event__rollup-btn')
-    //   .addEventListener('click', this.#formCloseHandler);
     const rollupButton = this.element.querySelector('.event__rollup-btn');
-     if(rollupButton){
-       rollupButton.addEventListener('click', this.#formCloseHandler);
-     }
+    if(rollupButton){
+      rollupButton.addEventListener('click', this.#formCloseHandler);
+    }
     this.element.querySelectorAll('.event__offer-selector')
       .forEach((item) => item.addEventListener('change', this.#eventChangeHandler));
     this.element.querySelectorAll('.event__type-item input')

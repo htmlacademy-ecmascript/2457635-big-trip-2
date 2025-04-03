@@ -1,7 +1,5 @@
 import {render, replace, remove, RenderPosition } from '../framework/render.js';
 import FilterView from '../view/filter-view.js';
-// import {filter} from '../utils/filter.js';
-// import {FilterType, UpdateType} from '../const.js';
 import TripInfoView from '../view/trip-info-view.js';
 import { filter } from '../utils/filter.js';
 import { FilterType, UpdateType } from '../const.js';

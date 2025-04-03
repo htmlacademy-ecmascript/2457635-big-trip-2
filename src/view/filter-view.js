@@ -3,7 +3,7 @@ import AbstractView from '../framework/view/abstract-view.js';
 const createFilterItemTemplate = (filter, currentFilterType) => {
   const { type, count } = filter;
 
-   return `
+  return `
      <div class="trip-filters__filter">
        <input
        id="filter-${type}"
@@ -27,8 +27,7 @@ const createFilterTemplate = (filterItems, currentFilterType) => `
        <button class="visually-hidden" type="submit">Accept filter</button>
        </form>
        </div>
-     </div>`
-     ;
+     </div>`;
 export default class FilterView extends AbstractView {
   #filters = null;
   #currentFilter = null;

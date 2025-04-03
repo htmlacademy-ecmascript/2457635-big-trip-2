@@ -53,7 +53,6 @@ export default class PointPresenter {
       allDestinations: this.#destinations,
       allOffers: this.#offers,
       onFormSubmit: this.#handleFormSubmit,
-      // onDeleteClick: this.#handleDeleteClick,
       onResetClick: this.#handleDeleteClick,
       onFormClose: this.#handleFormClose,
     });
@@ -159,14 +158,12 @@ export default class PointPresenter {
   };
 
   #handleFormSubmit = (point) => {
-    // if(point.basePrice === 0 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
-      if(point.basePrice <= 0 ||
-        // point.basePrice > 100000 ||
+    if(point.basePrice <= 0 ||
         point.destination === '' ||
         point.dateTo === '' ||
         point.dateFrom === '' ||
         point.dateTo === point.dateFrom
-      ){
+    ){
       this.setAborting();
       return;
     }

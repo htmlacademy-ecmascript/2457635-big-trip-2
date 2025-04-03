@@ -79,14 +79,12 @@ export default class NewPointPresenter {
   }
 
   #handleFormSubmit = (point) => {
-    // if(point.basePrice === 0 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
-      if(point.basePrice <= 0 ||
-        // point.basePrice > 100000 ||
+    if(point.basePrice <= 0 ||
         point.destination === '' ||
         point.dateTo === '' ||
         point.dateFrom === '' ||
         point.dateTo === point.dateFrom
-      ){
+    ){
       this.setAborting();
       return;
     }
@@ -96,19 +94,14 @@ export default class NewPointPresenter {
       UpdateType.MINOR,
       point,
     );
-    // this.destroy();
   };
 
   #handleCancelClick = () => {
     this.#handleDataChange(
-       UserAction.CANCEL_NEW_POINT,
-       UpdateType.MINOR,
-     );
+      UserAction.CANCEL_NEW_POINT,
+      UpdateType.MINOR,
+    );
   };
-
-  // #handleFormClose = () => {
-  //   this.#handleDeleteClick();
-  // };
 
   #escKeyDownHandler = (evt) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
