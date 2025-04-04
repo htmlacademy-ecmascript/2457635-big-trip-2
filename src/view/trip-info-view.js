@@ -7,7 +7,7 @@ const tripInfoTemplate = (total, infoTitle, dates) => {
   const infoDatesMax = Math.max(...dates.map((date) => +new Date(date)));
   const dateFormat = new Date(infoDatesMin).getMonth() === new Date(infoDatesMax).getMonth() ? DateFormat.DAY : DateFormat.DAY_MONTH;
 
-  const path = (infoTitle.length < 4 ? (infoTitle || []) : [infoTitle.at(0), infoTitle.at(-1)]).join('&nbsp;&mdash;&nbsp;');
+  const path = (infoTitle.length < 4 ? (infoTitle || []) : [infoTitle.at(0), '...', infoTitle.at(-1)]).join('&nbsp;&mdash;&nbsp;');
   const tripDates = dates?.length ? [humanizeDate(infoDatesMin, dateFormat), humanizeDate(infoDatesMax, DateFormat.DAY_MONTH)].join('&nbsp;&mdash;&nbsp;') : '';
 
   return `<section class="trip-main__trip-info  trip-info">
