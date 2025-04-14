@@ -41,8 +41,6 @@ export default class NewPointPresenter {
       allDestinations: this.#pointsModel.destinations,
       allOffers: this.#pointsModel.offers,
       onFormSubmit: this.#handleFormSubmit,
-      // onDeleteClick: this.#handleDeleteClick,
-      // onFormClose: this.#handleFormClose,
       onResetClick: this.#handleCancelClick,
     });
 

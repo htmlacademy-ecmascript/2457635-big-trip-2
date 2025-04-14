@@ -26,8 +26,8 @@ const createListOfferTemplate = (offers, checkedOffers) => {
   }
 
   return `
-    <section class="event__section  event__section--offers">
-     <h3 class="event__section-title  event__section-title--offers">Offers</h3>
+    <section class="event__section event__section--offers">
+     <h3 class="event__section-title event__section-title--offers">Offers</h3>
       <div class="event__available-offers">
       ${offers.map((offer) => createOfferTemplate(offer, checkedOffers)).join('')}
       </div>
@@ -58,8 +58,8 @@ const createDestinationTemplate = (destination) => {
     return '';
   }
 
-  return `<section class="event__section  event__section--destination">
-  <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+  return `<section class="event__section event__section--destination">
+  <h3 class="event__section-title event__section-title--destination">Destination</h3>
   <p class="event__destination-description">${description}</p>
   ${createPhotosContainerTemplate(pictures)}
   </section>`;
@@ -91,8 +91,8 @@ const createPointTypeItem = (pointId, pointType, currentPointType) => {
   const labelTitle = pointType[0].toUpperCase() + pointType.slice(1);
   return (
     `<div class="event__type-item">
-      <input id="event-type-${pointType}-${pointId}" class="event__type-input  visually-hidden" type="radio" name="event-type" value=${pointType} ${isChecked} }>
-      <label class="event__type-label  event__type-label--${pointType}" for="event-type-${pointType}-${pointId}">${labelTitle}</label>
+      <input id="event-type-${pointType}-${pointId}" class="event__type-input visually-hidden" type="radio" name="event-type" value=${pointType} ${isChecked} }>
+      <label class="event__type-label event__type-label--${pointType}" for="event-type-${pointType}-${pointId}">${labelTitle}</label>
     </div>`
   );
 };
@@ -108,11 +108,11 @@ const editTripPointFormTemplete = (state, allDestinations, allOffers) => {
 <form class="event event--edit" action="#" method="post">
   <header class="event__header">
     <div class="event__type-wrapper">
-    <label class="event__type  event__type-btn" for="event-type-toggle-${id}">
+    <label class="event__type event__type-btn" for="event-type-toggle-${id}">
         <span class="visually-hidden">Choose event type</span>
         <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
       </label>
-      <input class="event__type-toggle  visually-hidden" id="event-type-toggle-${id}" type="checkbox">
+      <input class="event__type-toggle visually-hidden" id="event-type-toggle-${id}" type="checkbox">
 
       <div class="event__type-list">
         <fieldset class="event__type-group">
@@ -122,33 +122,33 @@ const editTripPointFormTemplete = (state, allDestinations, allOffers) => {
       </div>
     </div>
 
-    <div class="event__field-group  event__field-group--destination">
-    <label class="event__label  event__type-output" for="event-destination-${id}">
+    <div class="event__field-group event__field-group--destination">
+    <label class="event__label event__type-output" for="event-destination-${id}">
     ${type}
   </label>
-  <input class="event__input  event__input--destination" id="event-destination-${id}" type="text" name="event-destination" value="${he.encode(name)}" list="destination-list-${id}">
+  <input class="event__input event__input--destination" id="event-destination-${id}" type="text" name="event-destination" value="${he.encode(name)}" list="destination-list-${id}">
   <datalist id="destination-list-${id}">
   ${allDestinations.map((target) => createDatalistOptionsTemplate(target)).join('')}
       </datalist>
     </div>
 
-    <div class="event__field-group  event__field-group--time">
+    <div class="event__field-group event__field-group--time">
     <label class="visually-hidden" for="event-start-time-${id}">From</label>
-    <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value="${humanizeDate(dateFrom, DateFormat.FULL_DATE_TIME)}"
+    <input class="event__input event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value="${humanizeDate(dateFrom, DateFormat.FULL_DATE_TIME)}"
       &mdash;
       <label class="visually-hidden" for="event-end-time-${id}">—</label>
-      <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="${humanizeDate(dateTo, DateFormat.FULL_DATE_TIME)}">
+      <input class="event__input event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="${humanizeDate(dateTo, DateFormat.FULL_DATE_TIME)}">
     </div>
 
-    <div class="event__field-group  event__field-group--price">
+    <div class="event__field-group event__field-group--price">
     <label class="event__label" for="event-price-${id}">
         <span class="visually-hidden">Price</span>
         &euro;
       </label>
-      <input class="event__input  event__input--price" id="event-price-${id}" type="number" name="event-price" step="1"  value="${he.encode(String(basePrice))}">
+      <input class="event__input event__input--price" id="event-price-${id}" type="number" name="event-price" step="1"  value="${he.encode(String(basePrice))}">
     </div>
 
-    <button class="event__save-btn  btn  btn--blue" type="submit" ${isDisabled ? 'disabled' : ''}> ${isSaving ? 'Saving...' : 'Save'}</button>
+    <button class="event__save-btn btn btn--blue" type="submit" ${isDisabled ? 'disabled' : ''}> ${isSaving ? 'Saving...' : 'Save'}</button>
     ${createRemoveButtons(isDisabled, isDeleting, id)}
   </header>
    <section class="event__details">
