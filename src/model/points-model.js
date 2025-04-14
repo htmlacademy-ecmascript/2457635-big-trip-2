@@ -74,12 +74,6 @@ export default class PointsModel extends Observable {
     }
   }
 
-  // addPoint(updateType, update) {
-  //   this.#points = [
-  //     update,
-  //     ...this.#points,
-  //   ];
-  //   this._notify(updateType, update);
   async addPoint(updateType, update) {
     try {
       const response = await this.#pointsApiService.addPoint(update);
