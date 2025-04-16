@@ -1,6 +1,6 @@
-import {remove, render, RenderPosition} from '../framework/render.js';
+import { remove, render, RenderPosition } from '../framework/render.js';
 import EditPointView from '../view/edit-point-form-view.js';
-import {UserAction, UpdateType} from '../const.js';
+import { UserAction, UpdateType } from '../const.js';
 import { getOffersByType } from '../utils/point.js';
 
 export default class NewPointPresenter {
@@ -41,8 +41,7 @@ export default class NewPointPresenter {
       allDestinations: this.#pointsModel.destinations,
       allOffers: this.#pointsModel.offers,
       onFormSubmit: this.#handleFormSubmit,
-      onDeleteClick: this.#handleDeleteClick,
-      onFormClose: this.#handleFormClose,
+      onResetClick: this.#handleCancelClick,
     });
 
     render(this.#pointEditComponent, this.#pointListContainer, RenderPosition.AFTERBEGIN);
@@ -78,7 +77,12 @@ export default class NewPointPresenter {
   }
 
   #handleFormSubmit = (point) => {
-    if(point.basePrice === 0 || point.destination === '' || point.dateTo === '' || point.dateFrom === ''){
+    if(point.basePrice <= 0 ||
+        point.destination === '' ||
+        point.dateTo === '' ||
+        point.dateFrom === '' ||
+        point.dateTo === point.dateFrom
+    ){
       this.setAborting();
       return;
     }
@@ -88,15 +92,13 @@ export default class NewPointPresenter {
       UpdateType.MINOR,
       point,
     );
-
   };
 
-  #handleDeleteClick = () => {
-    this.destroy();
-  };
-
-  #handleFormClose = () => {
-    this.#handleDeleteClick();
+  #handleCancelClick = () => {
+    this.#handleDataChange(
+      UserAction.CANCEL_NEW_POINT,
+      UpdateType.MINOR,
+    );
   };
 
   #escKeyDownHandler = (evt) => {
