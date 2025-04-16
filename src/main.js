@@ -1,5 +1,5 @@
-import BoardPresenter from './presenter/board-presenter.js';
 import HeaderPresenter from './presenter/header-presenter.js';
+import BoardPresenter from './presenter/board-presenter.js';
 import PointsModel from './model/points-model.js';
 import FilterModel from './model/filter-model.js';
 import NewPointButtonView from './view/new-point-button-view.js';
