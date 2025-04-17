@@ -1,5 +1,5 @@
 import SortView from '../view/sort-view.js';
-import ListView from '../view/list.view.js';
+import ListView from '../view/list-view.js';
 import { render, RenderPosition, remove } from '../framework/render.js';
 import UiBlocker from '../framework/ui-blocker/ui-blocker.js';
 import NoPointView from '../view/no-point-view.js';
